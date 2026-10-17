@@ -1,0 +1,84 @@
+{
+  "Header": {
+    "WolvenKitVersion": "9.1.0",
+    "WKitJsonVersion": "0.0.9",
+    "GameVersion": 2310,
+    "DataType": "CR2W"
+  },
+  "Data": {
+    "Version": 195,
+    "BuildVersion": 0,
+    "RootChunk": {
+      "$type": "worldStreamingBlock",
+      "cookingPlatform": "PLATFORM_PC",
+      "descriptors": [
+        {
+          "$type": "worldStreamingSectorDescriptor",
+          "blockIndex": {
+            "$type": "worldStreamingBlockIndex",
+            "oup": "Base",
+            "rldGridCell": 0
+          },
+          "category": "Exterior",
+          "data": {
+            "DepotPath": {
+              "$type": "ResourcePath",
+              "$storage": "string",
+              "$value": "mod\\gas_station_turret_remover\\gas_station_turrets.streamingsector"
+            },
+            "Flags": "Soft"
+          },
+          "level": 0,
+          "numNodeRanges": 2,
+          "questPrefabNodeRef": {
+            "$type": "NodeRef",
+            "$storage": "uint64",
+            "$value": "0"
+          },
+          "streamingBox": {
+            "$type": "Box",
+            "Max": {
+              "$type": "Vector4",
+              "W": 1,
+              "X": -1671.44189,
+              "Y": -4097.70654,
+              "Z": 208.186249
+            },
+            "Min": {
+              "$type": "Vector4",
+              "W": 1,
+              "X": -1981.77966,
+              "Y": -4456.53125,
+              "Z": -52.9102478
+            }
+          },
+          "variants": [
+            {
+              "$type": "worldStreamingSectorVariant",
+              "enabledByDefault": 0,
+              "name": {
+                "$type": "CName",
+                "$storage": "string",
+                "$value": "q104"
+              },
+              "nodeRef": {
+                "$type": "NodeRef",
+                "$storage": "string",
+                "$value": "$/03_night_city/se5/loc_q104_gas_station_prefabHHXSKEQ/loc_q104_gas_station_gameplay_prefabDBGQ7JI/#loc_q104_gas_station_devices"
+              },
+              "parentVariantID": 0,
+              "rangeIndex": 1,
+              "variantId": 79314002
+            }
+          ]
+        }
+      ],
+      "index": {
+        "$type": "worldStreamingBlockIndex",
+        "oup": "Base",
+        "rldGridCell": 0
+      }
+    },
+    "EmbeddedFiles": []
+  }
+}

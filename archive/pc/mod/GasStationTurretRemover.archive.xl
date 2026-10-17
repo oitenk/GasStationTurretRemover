@@ -1,0 +1,23 @@
+# Gas Station Turret Remover
+#
+# The two standing turrets outside the Badlands gas station from Life During Wartime
+# are taken out of the always-on part of their sectors and put back, unchanged, in a
+# sector of this mod that belongs to the quest's own "q104" variant of the station's
+# devices. The quest switches that variant on while it runs and off when it ends, so
+# the turrets are only there during the quest.
+streaming:
+  blocks:
+    - mod\gas_station_turret_remover\gas_station_turrets.streamingblock
+  sectors:
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-29_-67_1_0.streamingsector
+      expectedNodes: 3624
+      nodeDeletions:
+        # q104_gas_station_turret1, east of the pumps
+        - index: 842
+          type: worldEntityNode
+    - path: base\worlds\03_night_city\_compiled\default\exterior_-29_-68_1_0.streamingsector
+      expectedNodes: 1418
+      nodeDeletions:
+        # q104_gas_station_turret3, south of the pumps
+        - index: 251
+          type: worldEntityNode

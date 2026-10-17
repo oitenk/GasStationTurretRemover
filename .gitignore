@@ -1,0 +1,9 @@
+# Release zips are built from the source folders and attached to releases instead.
+dist/
+*.zip
+
+# Anything not for release, kept locally for reference only.
+_archive/
+
+# Screenshots and clips for the mod page.
+promo/
