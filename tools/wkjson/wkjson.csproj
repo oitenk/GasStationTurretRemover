@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Reads and writes game files as WolvenKit JSON using the WolvenKit 10 libraries.
+    Game version 2.5 changed the world sector format, and the released WolvenKit CLI
+    (9.1.1) cannot read it yet. Point WolvenKitDir at a WolvenKit 10 folder.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <WolvenKitDir Condition="'$(WolvenKitDir)' == ''">$(USERPROFILE)\Downloads\WolvenKit-10.0.0-beta.1</WolvenKitDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="$(WolvenKitDir)\WolvenKit.RED4.dll" />
+    <Reference Include="$(WolvenKitDir)\WolvenKit.Common.dll" />
+    <Reference Include="$(WolvenKitDir)\WolvenKit.Core.dll" />
+    <Reference Include="$(WolvenKitDir)\WolvenKit.Modkit.dll" />
+  </ItemGroup>
+</Project>

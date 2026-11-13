@@ -9,7 +9,14 @@ A Cyberpunk 2077 mod for the gas station in the Badlands where Marty sells guns.
 
 ## Installation
 
-The `archive` folder is laid out from the game root, so it can be copied into the game directory or zipped for a mod manager.
+The mod comes in two editions. Pick the one that matches your game:
+
+- **Phantom Liberty**: if you have the Phantom Liberty expansion installed.
+- **Base game**: if you do not.
+
+Phantom Liberty replaces the game's files for this part of the Badlands with its own copies, in which the turrets sit at different places, so each edition only works with its own setup. Install one of them, not both.
+
+Each edition's folder (`phantom-liberty\`, `base-game\`) holds an `archive` folder laid out from the game root, so it can be copied into the game directory or zipped for a mod manager.
 
 Requires:
 - [RED4ext](https://github.com/WopsS/RED4ext)
@@ -21,26 +28,26 @@ The game switches parts of a location on and off with the story through prefab v
 
 The mod changes that without touching the job itself:
 
-- `GasStationTurretRemover.archive.xl` removes the two turrets from the always-on part of their world sectors (`exterior_-29_-67_1_0`, node 842, and `exterior_-29_-68_1_0`, node 251).
+- `GasStationTurretRemover.archive.xl` removes the two turrets from the always-on part of their world sectors: in `exterior_-29_-67_1_0` node 845 with Phantom Liberty or 840 without it, and in `exterior_-29_-68_1_0` node 251 with Phantom Liberty or 252 without it.
 - `GasStationTurretRemover.archive` adds a small sector holding the same two turrets, with the same names and settings, inside the station's `q104` variant.
 
-If a game update changes either of those two sectors, ArchiveXL leaves it alone and writes a warning to its log instead of removing the wrong thing. The mod then needs an update.
+ArchiveXL checks the node count of each sector and the type of each node before removing anything, and writes a warning to its log if they do not match. That check cannot catch everything: game version 2.5 moved the turrets to new places in their sectors without changing the counts, and Phantom Liberty's copies of the sectors have the same counts as the base game's, so a game update can still mean the mod needs one too.
 
 ## Building
 
-The archive is built from the JSON in `source\` with [WolvenKit](https://github.com/WolvenKit/WolvenKit) 9.1's command-line tool and Python 3:
+The archives are built from the JSON in `source\` with Python 3, the .NET 10 SDK and [WolvenKit](https://github.com/WolvenKit/WolvenKit). Game version 2.5 changed the format of world sectors, and the released WolvenKit command-line tool (9.1.1) cannot read it yet, so `tools\wkjson` converts between JSON and game files with the WolvenKit 10 libraries (10.0.0-beta.1); the 9.1.1 command-line tool only packs the archives:
 
 ```
 powershell -ExecutionPolicy Bypass -File tools\build.ps1
 ```
 
-This converts the JSON to game files, checks that they read back unchanged, packs `archive\pc\mod\GasStationTurretRemover.archive` and writes `dist\GasStationTurretRemover.zip`.
+This builds `tools\wkjson` and then, for each edition, converts the JSON in `source\<edition>\` to game files, checks that they read back unchanged, packs `<edition>\archive\pc\mod\GasStationTurretRemover.archive` and writes `dist\GasStationTurretRemover-PhantomLiberty.zip` and `dist\GasStationTurretRemover-BaseGame.zip`.
 
-`tools\make_sources.py` regenerates the JSON in `source\` from WolvenKit JSON exports of the two vanilla sectors and `base\worlds\03_night_city\_compiled\default\blocks\all.streamingblock`. It checks the node counts and names first, so a changed game version shows up there.
+`tools\make_sources.py <edition> <exports> .` regenerates an edition's JSON in `source\<edition>\` and its `.archive.xl` from JSON exports (`wkjson read`) of the two sectors and `base\worlds\03_night_city\_compiled\default\blocks\all.streamingblock`, taken from `basegame_3_nightcity.archive` for the base game and from `ep1\ep1_1_nightcity.archive` for Phantom Liberty. It checks the node counts, types and names first, so a changed game version shows up there.
 
 ## Notes
 
-- Built and tested on game version 2.31 with ArchiveXL 1.27.4.
+- Updated for game version 2.5 with ArchiveXL 1.28.8. Version 1.0 was built for game version 2.31 and does not work on 2.5.
 
 Built it with Claude (the AI).
 

@@ -6,11 +6,36 @@ Exits non-zero and prints the first differences when the resource data differs.
 import json
 import sys
 
+import zlib
+
 IGNORED = {'HandleId', 'HandleRefId', 'BufferId', 'Type'}
+
+
+def fnv1a64(text):
+    h = 0xcbf29ce484222325
+    for b in text.encode('utf-8'):
+        h = ((h ^ b) * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF
+    return h
+
+
+def as_hash(obj):
+    """A name stored as a hash reads back as the bare hash when the reader cannot look the
+    name up, so names are compared by the hash the game file holds."""
+    value = obj['$value']
+    if obj['$storage'] != 'string':
+        return int(value)
+    if obj.get('$type') == 'ResourcePath':
+        return fnv1a64(value.lower())
+    if obj.get('$type') == 'TweakDBID':
+        data = value.encode('utf-8')
+        return (len(data) << 32) | zlib.crc32(data)
+    return value
 
 
 def strip(obj):
     if isinstance(obj, dict):
+        if '$storage' in obj and obj.get('$type') in ('ResourcePath', 'TweakDBID'):
+            return {'$type': obj['$type'], 'hash': as_hash(obj)}
         return {k: strip(v) for k, v in obj.items() if k not in IGNORED}
     if isinstance(obj, list):
         return [strip(v) for v in obj]

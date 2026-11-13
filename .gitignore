@@ -7,3 +7,7 @@ _archive/
 
 # Screenshots and clips for the mod page.
 promo/
+
+# Build output of the WolvenKit JSON helper.
+tools/wkjson/bin/
+tools/wkjson/obj/
